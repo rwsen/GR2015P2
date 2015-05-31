@@ -34,6 +34,7 @@ struct VertexShaderOutput
 	float4 Position2D : POSITION0;
 	// R: added ColorN 
 	float4 ColorN : COLOR0;
+	float4 XY3D : TEXCOORD0;
 };
 
 //------------------------------------------ Functions ------------------------------------------
@@ -46,9 +47,21 @@ float4 NormalColor(VertexShaderOutput input)
 }
 
 // Implement the Procedural texturing assignment here
-float4 ProceduralColor(/* parameter(s) */)
+float4 ProceduralColor(VertexShaderOutput input)
 {
-	return float4(0, 0, 0, 1);
+	float4 normal = input.ColorN;
+	float4 invertor = {1, 1, 1, 1};
+	float4 color;
+
+	if(fmod(floor(input.XY3D.x + 100) + floor(input.XY3D.y + 100), 2) < 1)
+	{
+		color = normal;
+	}
+	else
+	{
+		color = invertor - normal;
+	}
+	return color;
 }
 
 //---------------------------------------- Technique: Simple ----------------------------------------
@@ -65,6 +78,7 @@ VertexShaderOutput SimpleVertexShader(VertexShaderInput input)
 
 	// R: added Normal2D to ColorN "conversion"
 	output.ColorN.rgb = input.Normal3D.xyz;
+	output.XY3D = worldPosition;
 
 	return output;
 }
@@ -72,7 +86,9 @@ VertexShaderOutput SimpleVertexShader(VertexShaderInput input)
 float4 SimplePixelShader(VertexShaderOutput input) : COLOR0
 {
 	// R: added parameter Normal2D to function call
-	float4 color = NormalColor(input);
+	//float4 color = NormalColor(input);
+	// R: added call to ProceduralColor()
+	float4 color = ProceduralColor(input);
 
 	return color;
 }
