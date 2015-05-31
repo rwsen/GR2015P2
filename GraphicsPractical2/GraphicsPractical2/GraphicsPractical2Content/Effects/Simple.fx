@@ -34,6 +34,7 @@ struct VertexShaderOutput
 	float4 Position2D : POSITION0;
 	// R: added ColorN 
 	float4 ColorN : COLOR0;
+	// R: added the coordinate in the XY plane in the 3D world with texture coordinate semantic
 	float4 XY3D : TEXCOORD0;
 };
 
@@ -49,17 +50,24 @@ float4 NormalColor(VertexShaderOutput input)
 // Implement the Procedural texturing assignment here
 float4 ProceduralColor(VertexShaderOutput input)
 {
-	float4 normal = input.ColorN;
+	// R: normalize the normal
+	float4 normal = normalize(input.ColorN);
+	// R: define the vector used for inversion
 	float4 invertor = {1, 1, 1, 1};
+	// R: define the output variable
 	float4 color;
 
-	if(fmod(floor(input.XY3D.x + 100) + floor(input.XY3D.y + 100), 2) < 1)
+	// R: check is the pixel is on a white or black square in the XY plane in 3D
+	// R: 100 is added to X and Y, since fmod only works with positive values.
+	if(fmod(floor(input.XY3D.x + 1000) + floor(input.XY3D.y + 1000), 2) < 1)
 	{
+		// R: white square
 		color = normal;
 	}
 	else
 	{
-		color = invertor - normal;
+		// R: black square
+		color = normalize(invertor - normal);
 	}
 	return color;
 }
@@ -77,7 +85,7 @@ VertexShaderOutput SimpleVertexShader(VertexShaderInput input)
 	output.Position2D    = mul(viewPosition, Projection);
 
 	// R: added Normal2D to ColorN "conversion"
-	output.ColorN.rgb = input.Normal3D.xyz;
+	output.ColorN = input.Normal3D;
 	output.XY3D = worldPosition;
 
 	return output;
@@ -86,9 +94,9 @@ VertexShaderOutput SimpleVertexShader(VertexShaderInput input)
 float4 SimplePixelShader(VertexShaderOutput input) : COLOR0
 {
 	// R: added parameter Normal2D to function call
-	//float4 color = NormalColor(input);
+	float4 color = NormalColor(input);
 	// R: added call to ProceduralColor()
-	float4 color = ProceduralColor(input);
+	//float4 color = ProceduralColor(input);
 
 	return color;
 }
