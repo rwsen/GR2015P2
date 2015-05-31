@@ -9,6 +9,11 @@
 // Matrices for 3D perspective projection 
 float4x4 View, Projection, World;
 
+// R:
+float4 DiffuseColor;
+float4 AmbientColor;
+float AmbientIntensity;
+
 //---------------------------------- Input / Output structures ----------------------------------
 
 // Each member of the struct has to be given a "semantic", to indicate what kind of data should go in
@@ -53,7 +58,7 @@ float4 ProceduralColor(VertexShaderOutput input)
 	// R: normalize the normal
 	float4 normal = normalize(input.ColorN);
 	// R: define the vector used for inversion
-	float4 invertor = {1, 1, 1, 1};
+	float4 invertor = {1, 1, 1, 0};
 	// R: define the output variable
 	float4 color;
 
@@ -69,6 +74,31 @@ float4 ProceduralColor(VertexShaderOutput input)
 		// R: black square
 		color = normalize(invertor - normal);
 	}
+	return color;
+}
+
+// R:
+float4 LambertianColor(VertexShaderOutput input)
+{
+	float4 color;
+
+	float3 lightDirection = normalize(float3(-1, -1, -1));
+	float3 normal = input.ColorN;
+	float3x3 rotateAndScale = (float3x3) World;
+
+	float3 rotatedNormal = normalize(mul(normal, rotateAndScale));
+	float3 inversedNormal = mul(-1, rotatedNormal);
+	float dotProduct = dot(inversedNormal, lightDirection);
+
+	float3 AmbientLight;
+	AmbientLight.xyz = AmbientColor.xyz * AmbientIntensity;
+
+
+
+	color.xyz = DiffuseColor * max(0.0f, dotProduct) + AmbientLight; 
+
+	color.w = 0.0f;
+
 	return color;
 }
 
@@ -94,9 +124,11 @@ VertexShaderOutput SimpleVertexShader(VertexShaderInput input)
 float4 SimplePixelShader(VertexShaderOutput input) : COLOR0
 {
 	// R: added parameter Normal2D to function call
-	float4 color = NormalColor(input);
+	//float4 color = NormalColor(input);
 	// R: added call to ProceduralColor()
 	//float4 color = ProceduralColor(input);
+	// R:
+	float4 color = LambertianColor(input);
 
 	return color;
 }

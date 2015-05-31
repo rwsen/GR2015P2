@@ -56,7 +56,7 @@ namespace GraphicsPractical2
             this.camera = new Camera(new Vector3(0, 50, 100), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
 
             this.IsMouseVisible = true;
-
+            
             base.Initialize();
         }
 
@@ -66,9 +66,19 @@ namespace GraphicsPractical2
             this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
             // Load the "Simple" effect
             Effect effect = this.Content.Load<Effect>("Effects/Simple");
+
+            // R: added the setting of the DiffuseColor parameter to Red
+            // TODO
+            modelMaterial = new Material();
+            modelMaterial.AmbientColor = Color.Red;
+            modelMaterial.AmbientIntensity = 0.2f;
+            modelMaterial.DiffuseColor = Color.Red;
+            modelMaterial.SetEffectParameters(effect);
+
             // Load the model and let it use the "Simple" effect
             this.model = this.Content.Load<Model>("Models/Teapot");
             this.model.Meshes[0].MeshParts[0].Effect = effect;
+
             // Setup the quad
             this.setupQuad();
         }
