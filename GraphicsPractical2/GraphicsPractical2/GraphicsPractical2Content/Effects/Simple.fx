@@ -41,15 +41,17 @@ struct VertexShaderOutput
 	float4 ColorN : COLOR0;
 	// R: added the coordinate in the XY plane in the 3D world with texture coordinate semantic
 	float4 XY3D : TEXCOORD0;
+	// R: added the color when using Lambertian shading
+	float4 ColorLambert : COLOR1;
 };
 
 //------------------------------------------ Functions ------------------------------------------
 
 // Implement the Coloring using normals assignment here
-float4 NormalColor(VertexShaderOutput input)
+float4 NormalColor(float4 input)
 {
-	// R: color the pixel using the normal (non-clamped) converted to a color: ColorN
-	return float4(input.ColorN);
+	// R: color the pixel using the provided value.
+	return float4(input);
 }
 
 // Implement the Procedural texturing assignment here
@@ -74,31 +76,44 @@ float4 ProceduralColor(VertexShaderOutput input)
 		// R: black square
 		color = normalize(invertor - normal);
 	}
+
+	// R: return the color
 	return color;
 }
 
 // R:
-float4 LambertianColor(VertexShaderOutput input)
+float4 LambertianColor(float4 normal)
 {
+	// R: define the output variable
 	float4 color;
 
+	// R: define the direction of the light
 	float3 lightDirection = normalize(float3(-1, -1, -1));
-	float3 normal = input.ColorN;
-	float3x3 rotateAndScale = (float3x3) World;
 
-	float3 rotatedNormal = normalize(mul(normal, rotateAndScale));
-	float3 inversedNormal = mul(-1, rotatedNormal);
+	// R: extract the rotation+scale matrix from the World matrix
+	float3x3 rotateAndScale = (float3x3) World;
+	
+	// R: rotate and scale the normal according to world transformations
+	float3 rotatedNormal = mul(normal.xyz, rotateAndScale);
+
+	// R: inverse and normalize the normal
+	float3 inversedNormal = normalize(mul(-1, rotatedNormal));
+
+	// R: calculate the dot product between the light direction and the inversed normal
+	// R; to determine the light intensity
 	float dotProduct = dot(inversedNormal, lightDirection);
 
+	// R: calculate the amount of ambient light
+	// R: set AmbientIntensity to zero for no ambient light
 	float3 AmbientLight;
 	AmbientLight.xyz = AmbientColor.xyz * AmbientIntensity;
 
-
-
-	color.xyz = DiffuseColor * max(0.0f, dotProduct) + AmbientLight; 
-
+	// R: calculate the final color: DiffuseColor * DiffuseIntensity + AmbientLight
+	color.xyz = DiffuseColor * max(0.0f, dotProduct) + AmbientLight;
+	// R: set alpha to zero
 	color.w = 0.0f;
-
+	
+	// R: return the color
 	return color;
 }
 
@@ -115,20 +130,28 @@ VertexShaderOutput SimpleVertexShader(VertexShaderInput input)
 	output.Position2D    = mul(viewPosition, Projection);
 
 	// R: added Normal2D to ColorN "conversion"
-	output.ColorN = input.Normal3D;
+	output.ColorN.xyz = input.Normal3D.xyz;
 	output.XY3D = worldPosition;
+
+	// R: Lambertian shading is implemented here
+	float4 colorLambert = {0, 0, 0, 0};
+	// R: comment the next line and the indicated line in the pixel shader
+	// R: to not render Lambertian shading and thus improve efficiency
+	//colorLambert = LambertianColor(input.Normal3D);
+	output.ColorLambert = colorLambert;
 
 	return output;
 }
 
 float4 SimplePixelShader(VertexShaderOutput input) : COLOR0
 {
-	// R: added parameter Normal2D to function call
-	//float4 color = NormalColor(input);
-	// R: added call to ProceduralColor()
+	// R: uncomment one and only one of the following functions
+	// R: uncomment the next line to render Normal Coloring
+	//float4 color = NormalColor(input.ColorN);
+	// R: uncomment the next line to render  Procedural Coloring
 	//float4 color = ProceduralColor(input);
-	// R:
-	float4 color = LambertianColor(input);
+	// R: uncomment the next line to render Lambertian Shading
+	float4 color = NormalColor(input.ColorLambert);
 
 	return color;
 }
