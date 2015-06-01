@@ -7,8 +7,8 @@
       <Importer>EffectImporter</Importer>
       <Processor>EffectProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Nicus\Documents\GitHub\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\Effects\Simple.xnb</Output>
-      <Time>2015-06-01T21:00:47.5077181+02:00</Time>
+      <Output>D:\Programming\Github\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\Effects\Simple.xnb</Output>
+      <Time>2015-06-01T22:34:11.2688693+02:00</Time>
     </Item>
     <Item>
       <Source>Models\Teapot.fbx</Source>
@@ -16,11 +16,11 @@
       <Importer>FbxImporter</Importer>
       <Processor>ModelProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Nicus\Documents\GitHub\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\Models\Teapot.xnb</Output>
-      <Time>2015-06-01T10:26:00.2793851+02:00</Time>
+      <Output>D:\Programming\Github\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\Models\Teapot.xnb</Output>
+      <Time>2014-04-29T15:46:28+02:00</Time>
       <Dependency>
-        <Key>C:\Users\Nicus\Documents\GitHub\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\obj\x86\Debug\Models\Teapot_0.xml</Key>
-        <Value>2015-06-01T16:15:28.5829104+02:00</Value>
+        <Key>D:\Programming\Github\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\obj\x86\Debug\Models\Teapot_0.xml</Key>
+        <Value>2015-06-01T22:05:36.666586+02:00</Value>
       </Dependency>
     </Item>
     <Item>
@@ -29,8 +29,8 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Nicus\Documents\GitHub\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\Normal Maps\CobblestonesNormal.xnb</Output>
-      <Time>2015-06-01T10:26:00.3244037+02:00</Time>
+      <Output>D:\Programming\Github\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\Normal Maps\CobblestonesNormal.xnb</Output>
+      <Time>2014-04-29T15:46:30+02:00</Time>
     </Item>
     <Item>
       <Source>Textures\CobblestonesDiffuse.png</Source>
@@ -38,15 +38,15 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\Nicus\Documents\GitHub\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\Textures\CobblestonesDiffuse.xnb</Output>
-      <Time>2015-06-01T10:26:00.3474204+02:00</Time>
+      <Output>D:\Programming\Github\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\Textures\CobblestonesDiffuse.xnb</Output>
+      <Time>2014-04-29T15:46:28+02:00</Time>
     </Item>
     <Item>
       <Source>Models\Teapot.fbx</Source>
       <Importer>FbxImporter</Importer>
       <Options>IntermediateFile, DontCacheImportedData</Options>
-      <Output>C:\Users\Nicus\Documents\GitHub\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\obj\x86\Debug\Models\Teapot_0.xml</Output>
-      <Time>2015-06-01T10:26:00.2793851+02:00</Time>
+      <Output>D:\Programming\Github\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\obj\x86\Debug\Models\Teapot_0.xml</Output>
+      <Time>2014-04-29T15:46:28+02:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
@@ -55,10 +55,10 @@
       <TargetProfile>HiDef</TargetProfile>
       <BuildConfiguration>Debug</BuildConfiguration>
       <CompressContent>false</CompressContent>
-      <RootDirectory>C:\Users\Nicus\Documents\GitHub\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2Content\</RootDirectory>
-      <LoggerRootDirectory>C:\Users\Nicus\Documents\GitHub\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\</LoggerRootDirectory>
-      <IntermediateDirectory>C:\Users\Nicus\Documents\GitHub\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\obj\x86\Debug\</IntermediateDirectory>
-      <OutputDirectory>C:\Users\Nicus\Documents\GitHub\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\</OutputDirectory>
+      <RootDirectory>D:\Programming\Github\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2Content\</RootDirectory>
+      <LoggerRootDirectory>D:\Programming\Github\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\</LoggerRootDirectory>
+      <IntermediateDirectory>D:\Programming\Github\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\obj\x86\Debug\</IntermediateDirectory>
+      <OutputDirectory>D:\Programming\Github\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\</OutputDirectory>
     </Settings>
     <Assemblies>
       <Assembly>
@@ -87,7 +87,7 @@
       </Assembly>
       <Assembly>
         <Key>C:\Windows\Microsoft.Net\assembly\GAC_32\Microsoft.Xna.Framework.Content.Pipeline\v4.0_4.0.0.0__842cf8be1de50553\Microsoft.Xna.Framework.Content.Pipeline.dll</Key>
-        <Value>2015-04-30T12:07:48.7838779+02:00</Value>
+        <Value>2015-04-30T11:31:21.4035786+02:00</Value>
       </Assembly>
     </Assemblies>
   </Asset>

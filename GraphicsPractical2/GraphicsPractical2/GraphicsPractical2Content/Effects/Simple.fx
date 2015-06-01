@@ -42,8 +42,8 @@ struct VertexShaderInput
 struct VertexShaderOutput
 {
 	float4 Position2D : POSITION0;
-	// R: added ColorN, the normal of the pixel
-	float4 ColorN : COLOR0;
+	// R: added ColorNormal, the normal of the pixel
+	float4 ColorNormal : TEXCOORD1;
 	// R: added the coordinate in the XY plane in the 3D world with texture coordinate semantic
 	float4 XYZ3D : TEXCOORD0;
 	// R: added the color when using Lambertian shading
@@ -62,24 +62,20 @@ float4 NormalColor(float4 input)
 // Implement the Procedural texturing assignment here
 float4 ProceduralColor(VertexShaderOutput input)
 {
-	// R: normalize the normal
-	float4 normal = normalize(input.ColorN);
-	// R: define the vector used for inversion
-	float4 invertor = {1, 1, 1, 0};
 	// R: define the output variable
 	float4 color;
 
-	// R: check is the pixel is on a white or black square in the XY plane in 3D
+	// R: check if the pixel is on a white or black square in the XY plane in 3D
 	// R: 100 is added to X and Y, since fmod only works with positive values.
 	if(fmod(floor(input.XYZ3D.x + 1000) + floor(input.XYZ3D.y + 1000), 2) < 1)
 	{
 		// R: white square
-		color = normal;
+		color = input.ColorNormal;
 	}
 	else
 	{
 		// R: black square
-		color = normalize(invertor - normal);
+		color = -1*input.ColorNormal;
 	}
 
 	// R: return the color
@@ -143,7 +139,7 @@ float4 BlinnPhongColor(float4 normal, float4 pixelPosition)
 	// N:  Define all undefined variables of the formula:
 
 	float3 cameraPosition = {0, 50, 100};
-	float3 viewDirection = normalize(pixelPosition.xyz-cameraPosition);
+	float3 viewDirection = normalize(cameraPosition-pixelPosition.xyz);
 
 	// N: calculate h; the bisector of the angle between the direction of the light and the viewingdirection
 	float h = normalize(viewDirection + lightDirection);
@@ -171,8 +167,8 @@ VertexShaderOutput SimpleVertexShader(VertexShaderInput input)
     float4 viewPosition  = mul(worldPosition, View);
 	output.Position2D    = mul(viewPosition, Projection);
 
-	// R: added Normal2D to ColorN "conversion"
-	output.ColorN.xyz = input.Normal3D.xyz;
+	// R: added Normal2D to ColorNormal "conversion"
+	output.ColorNormal.xyz = input.Normal3D.xyz;
 	output.XYZ3D = worldPosition;
 
 	// R: Lambertian shading is implemented here
@@ -189,13 +185,12 @@ float4 SimplePixelShader(VertexShaderOutput input) : COLOR0
 {
 	// R: uncomment one and only one of the following functions
 	// R: uncomment the next line to render Normal Coloring
-	//float4 color = NormalColor(input.ColorN);
+	//float4 color = NormalColor(input.ColorNormal);
 	// R: uncomment the next line to render  Procedural Coloring
-	//float4 color = ProceduralColor(input);
+	float4 color = ProceduralColor(input);
 	// R: uncomment the next line to render Lambertian Shading
-	float4 color = NormalColor(input.ColorLambert);
-
-	color += BlinnPhongColor(input.ColorN, input.XYZ3D);
+	//float4 color = NormalColor(input.ColorLambert);
+	//color += BlinnPhongColor(input.ColorNormal, input.XYZ3D);
 
 	return color;
 }

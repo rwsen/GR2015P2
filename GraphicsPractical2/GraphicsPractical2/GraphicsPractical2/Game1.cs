@@ -53,7 +53,7 @@ namespace GraphicsPractical2
             // Flush the changes to the device parameters to the graphics card
             this.graphics.ApplyChanges();
             // Initialize the camera
-            this.camera = new Camera(new Vector3(0, 50, -100), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
+            this.camera = new Camera(new Vector3(0, 50, 100), new Vector3(0, 0, 0), new Vector3(0, 1, 0));
 
             this.IsMouseVisible = true;
             
@@ -73,12 +73,13 @@ namespace GraphicsPractical2
             modelMaterial.AmbientColor = Color.Red;
             modelMaterial.AmbientIntensity = 0.2f;
             modelMaterial.DiffuseColor = Color.Red;
-            modelMaterial.SetEffectParameters(effect);
 
             // N: added the specular variables
             modelMaterial.SpecularColor = Color.White;
             modelMaterial.SpecularIntensity = 2.0f;
             modelMaterial.SpecularPower = 25.0f;
+
+            modelMaterial.SetEffectParameters(effect);
 
             // Load the model and let it use the "Simple" effect
             this.model = this.Content.Load<Model>("Models/Teapot");
