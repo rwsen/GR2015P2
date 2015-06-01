@@ -66,18 +66,21 @@ namespace GraphicsPractical2
             this.spriteBatch = new SpriteBatch(this.GraphicsDevice);
             // Load the "Simple" effect
             Effect effect = this.Content.Load<Effect>("Effects/Simple");
-
-            // R: added the setting of the DiffuseColor parameter to Red
-            // TODO
+            
+            // R: create a new material object and set AmbientColor and AmbientIntensity
             modelMaterial = new Material();
             modelMaterial.AmbientColor = Color.Red;
             modelMaterial.AmbientIntensity = 0.2f;
+            // R: set the DiffuseColor to Red
             modelMaterial.DiffuseColor = Color.Red;
 
             // N: added the specular variables
             modelMaterial.SpecularColor = Color.White;
             modelMaterial.SpecularIntensity = 2.0f;
             modelMaterial.SpecularPower = 25.0f;
+
+            // R: TODO add the texture
+            
 
             modelMaterial.SetEffectParameters(effect);
 
@@ -141,6 +144,10 @@ namespace GraphicsPractical2
             // Matrices for 3D perspective projection
             this.camera.SetEffectParameters(effect);
             effect.Parameters["World"].SetValue(Matrix.CreateScale(10.0f));
+
+            // R: calculate the inversed transposed world matrix, to fix non-uniform scaling for normals
+            effect.Parameters["InverseTransposeWorld"].SetValue(Matrix.Transpose(Matrix.Invert(Matrix.CreateScale(10.0f))));
+
             // Draw the model
             mesh.Draw();
 

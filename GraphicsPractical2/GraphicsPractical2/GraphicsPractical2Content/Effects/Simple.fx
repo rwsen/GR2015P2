@@ -9,6 +9,8 @@
 // Matrices for 3D perspective projection 
 float4x4 View, Projection, World;
 
+float4x4 InverseTransposeWorld;
+
 // R:
 float4 DiffuseColor;
 float4 AmbientColor;
@@ -44,7 +46,7 @@ struct VertexShaderOutput
 	float4 Position2D : POSITION0;
 	// R: added ColorNormal, the normal of the pixel
 	float4 ColorNormal : TEXCOORD1;
-	// R: added the coordinate in the XY plane in the 3D world with texture coordinate semantic
+	// R: added the coordinate in the 3D world with texture coordinate semantic
 	float4 XYZ3D : TEXCOORD0;
 	// R: added the color when using Lambertian shading
 	float4 ColorLambert : COLOR1;
@@ -92,7 +94,7 @@ float4 LambertianColor(float4 normal)
 	float3 lightDirection = normalize(float3(-1, -1, -1));
 
 	// R: extract the rotation+scale matrix from the World matrix
-	float3x3 rotateAndScale = (float3x3) World;
+	float3x3 rotateAndScale = (float3x3) InverseTransposeWorld;
 	
 	// R: rotate and scale the normal according to world transformations
 	float3 rotatedNormal = mul(normal.xyz, rotateAndScale);
@@ -125,10 +127,10 @@ float4 BlinnPhongColor(float4 normal, float4 pixelPosition)
 	float4 color;
 
 	// N: define the direction of the light
-	float3 lightDirection = normalize(float3(-1, -1, -1));
+	float3 l = normalize(float3(-1, -1, -1));
 
 	// N: extract the rotation+scale matrix from the World matrix
-	float3x3 rotateAndScale = (float3x3) World;
+	float3x3 rotateAndScale = (float3x3) InverseTransposeWorld;
 
 	// N: rotate and scale the normal according to world transformations
 	float3 rotatedNormal = mul(normal.xyz, rotateAndScale);
@@ -138,11 +140,11 @@ float4 BlinnPhongColor(float4 normal, float4 pixelPosition)
 
 	// N:  Define all undefined variables of the formula:
 
-	float3 cameraPosition = {0, 50, 100};
-	float3 viewDirection = normalize(cameraPosition-pixelPosition.xyz);
+	float3 cameraPosition = {0.0f, 50.0f, 100.0f};
+	float3 v = normalize(pixelPosition.xyz-cameraPosition.xyz);
 
 	// N: calculate h; the bisector of the angle between the direction of the light and the viewingdirection
-	float h = normalize(viewDirection + lightDirection);
+	float3 h = normalize(v+l);
 
 	// N:  Calculate the Blinn-Phong shade:
 	color.xyz = SpecularColor * SpecularIntensity * pow(max(0.0f, dot(inversedNormal, h)), SpecularPower);
@@ -187,10 +189,10 @@ float4 SimplePixelShader(VertexShaderOutput input) : COLOR0
 	// R: uncomment the next line to render Normal Coloring
 	//float4 color = NormalColor(input.ColorNormal);
 	// R: uncomment the next line to render  Procedural Coloring
-	float4 color = ProceduralColor(input);
+	//float4 color = ProceduralColor(input);
 	// R: uncomment the next line to render Lambertian Shading
-	//float4 color = NormalColor(input.ColorLambert);
-	//color += BlinnPhongColor(input.ColorNormal, input.XYZ3D);
+	float4 color = NormalColor(input.ColorLambert);
+	color += BlinnPhongColor(input.ColorNormal, input.XYZ3D);
 
 	return color;
 }
