@@ -8,3 +8,13 @@ D:\Programming\Github\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPra
 D:\Programming\Github\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 D:\Programming\Github\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\obj\x86\Debug\GraphicsPractical2.exe
 D:\Programming\Github\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\obj\x86\Debug\GraphicsPractical2.pdb
+C:\Users\Nicus\Documents\GitHub\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\Effects\Simple.xnb
+C:\Users\Nicus\Documents\GitHub\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\Models\Teapot.xnb
+C:\Users\Nicus\Documents\GitHub\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\Normal Maps\CobblestonesNormal.xnb
+C:\Users\Nicus\Documents\GitHub\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\Content\Textures\CobblestonesDiffuse.xnb
+C:\Users\Nicus\Documents\GitHub\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\GraphicsPractical2.exe
+C:\Users\Nicus\Documents\GitHub\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\bin\x86\Debug\GraphicsPractical2.pdb
+C:\Users\Nicus\Documents\GitHub\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\obj\x86\Debug\GraphicsPractical2.csprojResolveAssemblyReference.cache
+C:\Users\Nicus\Documents\GitHub\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
+C:\Users\Nicus\Documents\GitHub\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\obj\x86\Debug\GraphicsPractical2.exe
+C:\Users\Nicus\Documents\GitHub\GR2015P2\GraphicsPractical2\GraphicsPractical2\GraphicsPractical2\obj\x86\Debug\GraphicsPractical2.pdb
