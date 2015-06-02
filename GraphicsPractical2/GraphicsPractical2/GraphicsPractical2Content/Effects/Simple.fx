@@ -11,15 +11,16 @@ float4x4 View, Projection, World;
 
 float4x4 InverseTransposeWorld;
 
-// R:
+// R: top level variable for Lambertian shading
 float4 DiffuseColor;
 float4 AmbientColor;
 float AmbientIntensity;
 
-// N:
+// N: top level variables for Blinn-Phong shading
 float4 SpecularColor;
 float SpecularIntensity;
 float SpecularPower;
+
 
 //---------------------------------- Input / Output structures ----------------------------------
 
@@ -84,7 +85,7 @@ float4 ProceduralColor(VertexShaderOutput input)
 	return color;
 }
 
-// R:
+// R: Lambertian shading is implemented here
 float4 LambertianColor(float4 normal)
 {
 	// R: define the output variable
@@ -185,14 +186,17 @@ VertexShaderOutput SimpleVertexShader(VertexShaderInput input)
 
 float4 SimplePixelShader(VertexShaderOutput input) : COLOR0
 {
+	// R: define the output variable
+	float4 color;
 	// R: uncomment one and only one of the following functions
 	// R: uncomment the next line to render Normal Coloring
-	//float4 color = NormalColor(input.ColorNormal);
+	//color = NormalColor(input.ColorNormal);
 	// R: uncomment the next line to render  Procedural Coloring
-	//float4 color = ProceduralColor(input);
-	// R: uncomment the next line to render Lambertian Shading
-	float4 color = NormalColor(input.ColorLambert);
+	//color = ProceduralColor(input);
+	// R: uncomment the next 2 lines to render Lambertian+Blinn-Phong Shading
+	color = NormalColor(input.ColorLambert);
 	color += BlinnPhongColor(input.ColorNormal, input.XYZ3D);
+
 
 	return color;
 }
