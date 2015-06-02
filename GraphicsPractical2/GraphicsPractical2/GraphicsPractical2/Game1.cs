@@ -29,8 +29,8 @@ namespace GraphicsPractical2
         private VertexPositionNormalTexture[] quadVertices;
         private short[] quadIndices;
         private Matrix quadTransform;
-        // R: the effect for the quad. Since there is no model-object-equivalent for the quad,
-        // R: we must store it's effect locally
+        // added: the effect for the quad. Since there is no model-object-equivalent for the quad,
+        // added: we must store it's effect locally
         Effect QuadEffect;
 
         public Game1()
@@ -70,19 +70,19 @@ namespace GraphicsPractical2
             // Load the "Simple" effect
             Effect effect = this.Content.Load<Effect>("Effects/Simple");
                         
-            // R: create a new material object and set AmbientColor and AmbientIntensity
+            // added: create a new material object and set AmbientColor and AmbientIntensity
             modelMaterial = new Material();
             modelMaterial.AmbientColor = Color.Red;
             modelMaterial.AmbientIntensity = 0.2f;
-            // R: set the DiffuseColor to Red
+            // added: set the DiffuseColor to Red
             modelMaterial.DiffuseColor = Color.Red;
 
-            // N: added the specular variables
+            // added: added the specular variables
             modelMaterial.SpecularColor = Color.White;
             modelMaterial.SpecularIntensity = 2.0f;
             modelMaterial.SpecularPower = 25.0f;
             
-            // R: set the parameters to the effect
+            // added: set the parameters to the effect
             modelMaterial.SetEffectParameters(effect);
 
             // Load the model and let it use the "Simple" effect
@@ -92,9 +92,9 @@ namespace GraphicsPractical2
             // Setup the quad
             this.setupQuad();
 
-            // R: load the "Simple2" effect for the quad
+            // added: load the "Simple2" effect for the quad
             QuadEffect = this.Content.Load<Effect>("Effects/Simple2");
-            // R: load the texture to the QuadEffect
+            // added: load the texture to the QuadEffect
             QuadEffect.Parameters["DiffuseTexture"].SetValue(Content.Load<Texture>("Textures\\CobbleStonesDiffuse"));
         }
 
@@ -145,13 +145,13 @@ namespace GraphicsPractical2
             // Clear the screen in a predetermined color and clear the depth buffer
             this.GraphicsDevice.Clear(ClearOptions.Target | ClearOptions.DepthBuffer, Color.DeepSkyBlue, 1.0f, 0);
 
-            // R: set the technique of the quad
+            // added: set the technique of the quad
             this.QuadEffect.CurrentTechnique = QuadEffect.Techniques["Simple"];
             // Matrices for 3D perspective projection
             this.camera.SetEffectParameters(QuadEffect);
             this.QuadEffect.Parameters["World"].SetValue(Matrix.CreateScale(100.0f));
 
-            // R: draw the quad
+            // added: draw the quad
             this.DrawQuad();
             
             // Get the model's only mesh
@@ -163,15 +163,15 @@ namespace GraphicsPractical2
             // Matrices for 3D perspective projection
             this.camera.SetEffectParameters(effect);
 
-            // R: create the world matrix for the teacup
+            // added: create the world matrix for the teacup
             Matrix World = Matrix.CreateScale(10.0f);
-            // R: translate the world matrix
+            // added: translate the world matrix
             Matrix TranslatedWorld = World * Matrix.CreateTranslation(0.0f, 16f, 0.0f);
 
-            // R: set the new world matrix to the effect for the teacup
+            // added: set the new world matrix to the effect for the teacup
             effect.Parameters["World"].SetValue(TranslatedWorld);
 
-            // R: calculate the inversed transposed world matrix, to fix non-uniform scaling for normals
+            // added: calculate the inversed transposed world matrix, to fix non-uniform scaling for normals
             effect.Parameters["InverseTransposeWorld"].SetValue(Matrix.Transpose(Matrix.Invert(TranslatedWorld)));
 
             // Draw the model
@@ -182,13 +182,13 @@ namespace GraphicsPractical2
 
         protected void DrawQuad()
         {
-            // R: apply effect passes
+            // added: apply effect passes
             foreach (EffectPass pass in this.QuadEffect.CurrentTechnique.Passes)
             {
                 pass.Apply();
             }
 
-            // R: draw the quad using the QuadEffect
+            // added: draw the quad using the QuadEffect
             this.GraphicsDevice.DrawUserIndexedPrimitives(PrimitiveType.TriangleList, this.quadVertices, 0, this.quadVertices.Length, this.quadIndices, 0, this.quadIndices.Length / 3);
         }
     }

@@ -10,10 +10,10 @@
 float4x4 View, Projection, World;
 
 
-// R: TLV for the texture
+// added: TLV for the texture
 Texture DiffuseTexture;
 
-// R: the sampler
+// added: the sampler
 sampler MeshTextureSampler = sampler_state
 {
     Texture = <DiffuseTexture>;
@@ -30,7 +30,7 @@ sampler MeshTextureSampler = sampler_state
 struct VertexShaderInput
 {
 	float4 Position3D : POSITION0;
-	// R: Added the texture coordinate for the cobblestone
+	// added: Added the texture coordinate for the cobblestone
 	float4 TextureCoordinate : TEXCOORD0;
 };
 
@@ -45,7 +45,7 @@ struct VertexShaderInput
 struct VertexShaderOutput
 {
 	float4 Position2D : POSITION0;
-	// R: Added the texture coordinate for the cobblestone
+	// added: Added the texture coordinate for the cobblestone
 	float4 TextureCoordinate : TEXCOORD2;
 };
 
@@ -65,15 +65,16 @@ VertexShaderOutput SimpleVertexShader(VertexShaderInput input)
     float4 viewPosition  = mul(worldPosition, View);
 	output.Position2D    = mul(viewPosition, Projection);
 
-	// R: pass on the texture coordinate for the cobblestone
+	// added: pass on the texture coordinate for the cobblestone
 	output.TextureCoordinate = input.TextureCoordinate;
 	return output;
 }
 
 float4 SimplePixelShader(VertexShaderOutput input) : COLOR0
 {
-	// R: define the output variable
+	// added: define the output variable
 	float4 color;
+	// added: color the fragment using the sampler and the texture coordinates
 	color = tex2D(MeshTextureSampler, input.TextureCoordinate);
 
 	return color;
